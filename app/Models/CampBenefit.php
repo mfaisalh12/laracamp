@@ -9,5 +9,5 @@ class CampBenefit extends Model
 {
     use HasFactory;
 
-    protected $filleable = ['name'];
+    protected $filleable = ['camp_id', 'name'];
 }
