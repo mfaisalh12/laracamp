@@ -22,7 +22,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($checkouts as $checkout)
+                                @forelse ($checkouts as $checkout)
                                     <tr>
                                         <td>{{$checkout->User->name}}</td>
                                         <td>{{$checkout->Camp->title}}</td>
@@ -36,13 +36,19 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <form action="" method="POST">
-                                                @csrf
-                                                <button class="btn btn-primary btn-sm">Set to Paid</button>
-                                            </form>
+                                            @if (!$checkout->is_paid)
+                                                <form action="{{route('admin.checkout.update', $checkout->id)}}" method="POST">
+                                                    @csrf
+                                                    <button class="btn btn-primary btn-sm">Set to Paid</button>
+                                                </form>
+                                            @endif
                                         </td>
                                     </tr>
-                                @endforeach
+                                    @empty
+                                    <tr>
+                                        <td colspan="3">No camps registered</td>
+                                    </tr>          
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
